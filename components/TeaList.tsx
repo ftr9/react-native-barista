@@ -1,15 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import TeaCard from './TeaCard';
 import { DeviceWidth } from '../constants/Screens';
 import { FlatList } from 'react-native-gesture-handler';
 import useDroppableArea from '../store/useDroppableArea.store';
 
-interface ITeas {
-  name: string;
-  price: number;
-  image: any;
-}
+import { ITeas } from '../types';
 
 const Teas: ITeas[] = [
   {
@@ -54,7 +49,7 @@ const TeaList = () => {
 
   return (
     <FlatList
-      //if cup is in the plate do not allow user to scroll
+      //if cup is in the plate do not allow user to scroll horizontally
       scrollEnabled={isElementInDropArea ? false : true}
       snapToInterval={DeviceWidth}
       decelerationRate={'fast'}
@@ -72,5 +67,3 @@ const TeaList = () => {
 };
 
 export default TeaList;
-
-const styles = StyleSheet.create({});
