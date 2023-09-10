@@ -1,23 +1,9 @@
 import { create } from 'zustand';
 
-interface ICartInProduct {
-  qty: number;
-  name: string;
-  image: any;
-  price: number;
-}
-
+import { ICartInProduct, ITeas } from '../types';
 interface Iusecart {
-  selectedProduct: null | {
-    name: string;
-    image: any;
-    price: number;
-  };
-  setActiveSelectedProduct: (product: {
-    name: string;
-    image: any;
-    price: number;
-  }) => void;
+  selectedProduct: null | ITeas;
+  setActiveSelectedProduct: (product: ITeas) => void;
   removeActiveSelectedProduct: () => void;
   confirmedCart: ICartInProduct[];
   addToConfirmedCart: (product: ICartInProduct) => void;
