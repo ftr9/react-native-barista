@@ -8,14 +8,7 @@ import { router } from 'expo-router';
 const NavBar = () => {
   const { confirmedCart } = useCart();
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingRight: 15,
-      }}
-    >
+    <View style={styles.navBarContainer}>
       <Image
         resizeMode={'cover'}
         style={{
@@ -46,4 +39,11 @@ const NavBar = () => {
 
 export default NavBar;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  navBarContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingRight: 15,
+  },
+});
