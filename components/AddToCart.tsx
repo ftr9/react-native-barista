@@ -10,15 +10,12 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import useCart from '../store/useCart.store';
-import { useRouter } from 'expo-router';
 
 const AddToCart = () => {
   const [quantity, setQuantity] = useState(0);
-  const { isElementInDropArea, setElementInDropAreaStatus } =
-    useDroppableArea();
+  const { isElementInDropArea } = useDroppableArea();
   const opacitySharedValue = useSharedValue(1);
   const { addToConfirmedCart, selectedProduct } = useCart();
-  const router = useRouter();
 
   const translateYSharedValue = useSharedValue(0);
 
@@ -58,16 +55,21 @@ const AddToCart = () => {
   };
 
   const decrementClickHandle = async () => {
+    ////1) animate quickly
     translateYSharedValue.value = withTiming(4, { duration: 100 });
     opacitySharedValue.value = withTiming(0, { duration: 100 });
+
+    ////2) wait till the animation completes
     await new Promise(resolve =>
       setTimeout(() => {
         resolve('wait for 200 ms');
       }, 200)
     );
 
+    ////3) update the quanity
     setQuantity(counter => (counter <= 0 ? 0 : counter - 1));
 
+    ////4) animate quantity change
     translateYSharedValue.value = withTiming(0, { duration: 100 });
     opacitySharedValue.value = withSequence(withTiming(1, { duration: 100 }));
   };
@@ -85,24 +87,8 @@ const AddToCart = () => {
   };
 
   return (
-    <View
-      style={{
-        alignItems: 'center',
-        flexDirection: 'row',
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        borderTopColor: 'rgba(0,0,0,0.1)',
-        borderTopWidth: 0.5,
-      }}
-    >
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+    <View style={styles.addToCartContainer}>
+      <View style={styles.addToCardButtons}>
         <TouchableOpacity onPress={decrementClickHandle}>
           <Ionicons name="remove" size={25} color={'#C0C0C0'} />
         </TouchableOpacity>
@@ -127,14 +113,7 @@ const AddToCart = () => {
         <Animated.View
           onTouchStart={addToCardClickHandle}
           entering={FadeInRight}
-          style={{
-            backgroundColor: '#1f1000',
-            paddingHorizontal: 15,
-            paddingVertical: 8,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 5,
-          }}
+          style={styles.addToCartCta}
         >
           <Ionicons name="arrow-forward-outline" size={25} color={'white'} />
         </Animated.View>
@@ -145,4 +124,27 @@ const AddToCart = () => {
 
 export default AddToCart;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  addToCartContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderTopColor: 'rgba(0,0,0,0.1)',
+    borderTopWidth: 0.5,
+  },
+  addToCardButtons: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addToCartCta: {
+    backgroundColor: '#1f1000',
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+});
