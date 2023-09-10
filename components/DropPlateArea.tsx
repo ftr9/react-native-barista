@@ -32,6 +32,7 @@ const DropPlateArea = () => {
   });
 
   useEffect(() => {
+    ////if element is in droppable area reduce scale value of pointer and plate
     if (isElementInDropArea) {
       iconScaleVal.value = withTiming(0, { duration: 200 });
       plateScaleVal.value = withTiming(0.8, { duration: 200 });
