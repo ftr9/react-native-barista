@@ -36,27 +36,8 @@ const NumberIcon = ({ children }: INumberIcon) => {
 
 function NumberDisplay({ count }: { count: number }) {
   return (
-    <View
-      style={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 15,
-        width: 15,
-        borderRadius: 10,
-        backgroundColor: '#1f1000',
-        position: 'absolute',
-        right: -10,
-        top: -8,
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 10,
-          color: 'white',
-        }}
-      >
-        {count}
-      </Text>
+    <View style={styles.numberDisplayContainer}>
+      <Text style={styles.numberDiplayText}>{count}</Text>
     </View>
   );
 }
@@ -64,4 +45,20 @@ function NumberDisplay({ count }: { count: number }) {
 NumberIcon.NumberDisplay = NumberDisplay;
 export default NumberIcon;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  numberDisplayContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 15,
+    width: 15,
+    borderRadius: 10,
+    backgroundColor: '#1f1000',
+    position: 'absolute',
+    right: -10,
+    top: -8,
+  },
+  numberDiplayText: {
+    fontSize: 10,
+    color: 'white',
+  },
+});
