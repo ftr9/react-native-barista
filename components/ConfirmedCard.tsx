@@ -3,18 +3,9 @@ import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import Animated from 'react-native-reanimated';
 import useCart from '../store/useCart.store';
+import { ICartInProduct } from '../types';
 
-const ConfirmedCard = ({
-  name,
-  price,
-  image,
-  qty,
-}: {
-  name: string;
-  price: number;
-  image: any;
-  qty: number;
-}) => {
+const ConfirmedCard = ({ name, price, image, qty }: ICartInProduct) => {
   const { removeFromConfirmedCart } = useCart();
 
   const removeItemClickHandle = () => {
@@ -22,32 +13,14 @@ const ConfirmedCard = ({
   };
 
   return (
-    <Animated.View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderBottomWidth: 0.5,
-        borderColor: 'rgba(0,0,0,0.3)',
-        paddingRight: 15,
-        paddingBottom: 10,
-      }}
-    >
+    <Animated.View style={styles.confirmedCardContainer}>
       <Image
-        style={{
-          height: 100,
-          width: 100,
-        }}
+        style={styles.confirmedCardImg}
         resizeMode="cover"
         source={image}
       />
       <View>
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: '500',
-            marginBottom: 5,
-          }}
-        >
+        <Text style={styles.confirmedCardText}>
           {name} ({qty})
         </Text>
         <Text>Rs. {price}</Text>
@@ -66,4 +39,22 @@ const ConfirmedCard = ({
 
 export default ConfirmedCard;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  confirmedCardContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 0.5,
+    borderColor: 'rgba(0,0,0,0.3)',
+    paddingRight: 15,
+    paddingBottom: 10,
+  },
+  confirmedCardImg: {
+    height: 100,
+    width: 100,
+  },
+  confirmedCardText: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 5,
+  },
+});
