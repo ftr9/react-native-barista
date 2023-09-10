@@ -32,21 +32,8 @@ const confirmedCart = () => {
 
   if (confirmedCart.length === 0) {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 16,
-            marginBottom: 10,
-          }}
-        >
-          Please Add some Item ...
-        </Text>
+      <View style={styles.cartNotFoundContainer}>
+        <Text style={styles.cartNotFoundText}>Please Add some Item ...</Text>
         <TouchableOpacity
           onPress={() => {
             if (router.canGoBack()) {
@@ -79,37 +66,14 @@ const confirmedCart = () => {
         }}
         ListFooterComponent={() => {
           return (
-            <Text
-              style={{
-                fontWeight: '400',
-                fontSize: 14,
-                textAlign: 'right',
-                paddingVertical: 10,
-                paddingRight: 15,
-              }}
-            >
+            <Text style={styles.listFooterText}>
               Total: Rs. {getTotalAmount()}
             </Text>
           );
         }}
       />
-      <TouchableOpacity
-        style={{
-          padding: 15,
-          backgroundColor: '#1f1000',
-          margin: 5,
-          borderRadius: 5,
-        }}
-        onPress={placeCoffeeHandle}
-      >
-        <Text
-          style={{
-            color: 'white',
-            textAlign: 'center',
-          }}
-        >
-          Place Coffee
-        </Text>
+      <TouchableOpacity style={styles.placeBtn} onPress={placeCoffeeHandle}>
+        <Text style={styles.placeBtnText}>Place Coffee</Text>
       </TouchableOpacity>
     </Animated.View>
   );
@@ -117,4 +81,31 @@ const confirmedCart = () => {
 
 export default confirmedCart;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  cartNotFoundContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cartNotFoundText: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  listFooterText: {
+    fontWeight: '400',
+    fontSize: 14,
+    textAlign: 'right',
+    paddingVertical: 10,
+    paddingRight: 15,
+  },
+  placeBtn: {
+    padding: 15,
+    backgroundColor: '#1f1000',
+    margin: 5,
+    borderRadius: 5,
+  },
+  placeBtnText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+});
